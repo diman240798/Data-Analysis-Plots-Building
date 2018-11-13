@@ -40,12 +40,16 @@ for x in range(0, len(sTeam1)):
 
 a = 5
 
-fig = plt.figure(num=None, figsize=(8, 6), dpi=500, facecolor='w', edgecolor='k')
-fig.set_size_inches(100.5, 10.5, forward=True)
+fig = plt.figure(num=None, figsize=(50, 10), dpi=80, facecolor='w', edgecolor='k')
+# ax1 = plt.subplot2grid((1, 5), (0, 0), colspan=1000, rowspan=1000)
+
 teams_get = teams.get('СКА')
 score = teams_get.dateScore
+keys = list(score.keys())[:20]
+values = list(score.values())[:20]
 
-plt.scatter(score.keys(), score.values())
+
+plt.plot(score.keys(), score.values())
 
 plt.show()
 a = 6

@@ -1,22 +1,17 @@
 class Team:
-    name = ""
-    games = 0
-    victories = 0
-    victoriesOver = 0
-    victoriesBullit = 0
-    fails = 0
-    failsOver = 0
-    failsBullit = 0
-    dateScore = {}
-
+    def __init__(self):
+        self.name = ""
+        self.games = 0
+        self.victories = 0
+        self.victoriesOver = 0
+        self.victoriesBullit = 0
+        self.fails = 0
+        self.failsOver = 0
+        self.failsBullit = 0
+        self.dateScore = {}
 
     def __str__(self) -> str:
         return self.name
-
-def whoWon(string):
-    score1, score2 = string.split(':')
-    a = int(score1) - int(score2) > 0
-    return a
 
 
 def checkWinnerBullit(string, team1, team2, date):
