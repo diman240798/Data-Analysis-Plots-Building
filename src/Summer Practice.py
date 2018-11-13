@@ -1,9 +1,35 @@
+import json
+import os
+
 import matplotlib.pyplot as plt
 from pandas import read_csv
 from src.Team import Team
 from src.Team import checkWinnerBullit
 from src.Team import checkWinnerOver
 from src.Team import checkWinnerUsual
+
+
+def printGraphByName(name):
+    with open('graphsData.json', 'r') as f:
+        line = f.readline()
+        all = json.loads(line)
+        for x in all:
+            object = x['name']
+            for x in object.keys():
+                if (x == name):
+                    dateScoredWrapped = object[x]
+                    dateScore = dateScoredWrapped['dateScore']
+                    fig = plt.figure(num=None, figsize=(80, 10), dpi=80, facecolor='w', edgecolor='k')
+
+                    plt.plot(dateScore.keys(), dateScore.values())
+                    plt.savefig('plot.png')
+                    plt.show()
+                    break
+                # else:
+                #     print("No team with such name")
+
+
+printGraphByName('ЦСКА')
 
 df1 = read_csv("khl_2017_18.csv")
 
@@ -38,18 +64,27 @@ for x in range(0, len(sTeam1)):
     teams[team1Name] = team1
     teams[team2Name] = team2
 
-a = 5
+with open('examined.csv', 'w+') as f:
+    f.write('Имя,Победы,ПобедыБуллит,ПобедыОвер,Поражения,ПораженияБуллит,ПораженияОвер\n')
+    for k in teams.keys():
+        f.write(teams[k].__str__(k))
 
-fig = plt.figure(num=None, figsize=(50, 10), dpi=80, facecolor='w', edgecolor='k')
-# ax1 = plt.subplot2grid((1, 5), (0, 0), colspan=1000, rowspan=1000)
+with open('graphsData.json', 'w+') as f:
+    f.write('[')
+    for k in teams.keys():
+        dateScore = {'dateScore': teams[k].dateScoreSum}
+        unnamed = {k: dateScore}
+        named = {'name': unnamed}
+        f.write(json.dumps(named, ensure_ascii=False) + ',')
+    f.seek(f.tell() - 1, os.SEEK_SET)
+    f.write(']')
 
-teams_get = teams.get('СКА')
-score = teams_get.dateScore
-keys = list(score.keys())[:20]
-values = list(score.values())[:20]
-
-
-plt.plot(score.keys(), score.values())
-
-plt.show()
-a = 6
+# fig = plt.figure(num=None, figsize=(50, 10), dpi=80, facecolor='w', edgecolor='k')
+#
+# teams_get = teams.get('СКА')
+# score = teams_get.dateScore
+#
+# plt.plot(score.keys(), score.values())
+#
+# plt.show()
+# a = 6

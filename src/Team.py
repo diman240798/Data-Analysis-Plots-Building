@@ -1,6 +1,5 @@
 class Team:
     def __init__(self):
-        self.name = ""
         self.games = 0
         self.victories = 0
         self.victoriesOver = 0
@@ -8,10 +7,19 @@ class Team:
         self.fails = 0
         self.failsOver = 0
         self.failsBullit = 0
-        self.dateScore = {}
+        self.scoreSum = 0
+        self.dateScoreSum = {}
 
-    def __str__(self) -> str:
-        return self.name
+    def __str__(self, name) -> str:
+        l = list()
+        l.append(name)
+        l.append(str(self.victories))
+        l.append(str(self.victoriesBullit))
+        l.append(str(self.victoriesOver))
+        l.append(str(self.fails))
+        l.append(str(self.failsBullit))
+        l.append(str(self.failsOver) + '\n')
+        return ','.join(l)
 
 
 def checkWinnerBullit(string, team1, team2, date):
@@ -25,17 +33,12 @@ def checkWinnerBullit(string, team1, team2, date):
     result2 = int(split[1])
 
     if (result1 > result2):
-        curScore = team1.dateScore.get(date, 0)
-        team1.dateScore[date] = curScore + result1
 
-        team1.victoriesBullit = team1.victoriesBullit + 1
-        team2.failsBullit = team2.failsBullit + 1
+        team1.victoriesBullit += 1
+        team2.failsBullit += 1
     else:
-        curScore = team2.dateScore.get(date, 0)
-        team2.dateScore[date] = curScore + result2
-
-        team2.victoriesBullit = team2.victoriesBullit + 1
-        team1.failsBullit = team1.failsBullit + 1
+        team2.victoriesBullit += 1
+        team1.failsBullit += 1
 
 
 def checkWinnerOver(string, team1, team2, date):
@@ -49,17 +52,12 @@ def checkWinnerOver(string, team1, team2, date):
     result2 = int(split[1])
 
     if (result1 > result2):
-        curScore = team1.dateScore.get(date, 0)
-        team1.dateScore[date] = curScore + result1
 
-        team1.victoriesOver = team1.victoriesOver + 1
-        team2.failsOver = team2.failsOver + 1
+        team1.victoriesOver += 1
+        team2.failsOver += 1
     else:
-        curScore = team2.dateScore.get(date, 0)
-        team2.dateScore[date] = curScore + result2
-
-        team2.victoriesOver = team2.victoriesOver + 1
-        team1.failsOver = team1.failsOver + 1
+        team2.victoriesOver += 1
+        team1.failsOver += 1
 
 
 def checkWinnerUsual(string, team1, team2, date):
@@ -70,16 +68,17 @@ def checkWinnerUsual(string, team1, team2, date):
     result1 = int(split[0])
     result2 = int(split[1])
 
+    team1.games += 1
+    team2.games += 1
     if (result1 > result2):
-        curScore = team1.dateScore.get(date, 0)
-        team1.dateScore[date] = curScore + result1
+        curScore = team1.scoreSum
+        team1.dateScoreSum[date] = curScore + result1
 
-        team1.victories = team1.victories + 1
-        team2.fails = team2.fails + 1
+        team1.victories += 1
+        team2.fails += 1
     else:
-        score = team2.dateScore
-        curScore = score.get(date, 0)
-        team2.dateScore[date] = curScore + result2
+        curScore = team2.scoreSum
+        team2.dateScoreSum[date] = curScore + result2
 
-        team2.victories = team2.victories + 1
-        team1.fails = team1.fails + 1
+        team2.victories += 1
+        team1.fails += 1
