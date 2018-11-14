@@ -13,18 +13,18 @@ Used Technologies<b>
 Income data
 <br>
 <br>
-![Image alt](https://postimg.cc/9wZ2wzxq)
+![Image alt](https://i.postimg.cc/wMbjPmLF/Result.png)
 <br>
 <br>
 Result (examined) data
 <br>
 <br>
-![alt text](https://postimg.cc/t7xpMmXC)
+![alt text](https://i.postimg.cc/pV0ryg48/Income.png)
 <br>
 <br>
 Plot sample
 <br>
 <br>
-<img src="https://postimg.cc/3dQY5CRj" />
+<img src="https://i.postimg.cc/qMzRK1HF/image.png" />
 <br>
 <br>
