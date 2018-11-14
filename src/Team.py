@@ -13,6 +13,7 @@ class Team:
     def __str__(self, name) -> str:
         l = list()
         l.append(name)
+        l.append(str(self.games))
         l.append(str(self.victories))
         l.append(str(self.victoriesBullit))
         l.append(str(self.victoriesOver))
@@ -68,17 +69,20 @@ def checkWinnerUsual(string, team1, team2, date):
     result1 = int(split[0])
     result2 = int(split[1])
 
+    # increment spent games
     team1.games += 1
     team2.games += 1
-    if (result1 > result2):
-        curScore = team1.scoreSum
-        team1.dateScoreSum[date] = curScore + result1
+    #increase scores
 
+    team1.scoreSum += result1
+    team1.dateScoreSum[date] = team1.scoreSum
+
+    team2.scoreSum += result2
+    team2.dateScoreSum[date] = team2.scoreSum
+
+    if (result1 > result2):
         team1.victories += 1
         team2.fails += 1
     else:
-        curScore = team2.scoreSum
-        team2.dateScoreSum[date] = curScore + result2
-
         team2.victories += 1
         team1.fails += 1
