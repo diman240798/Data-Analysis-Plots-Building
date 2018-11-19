@@ -4,7 +4,7 @@ Used Technologies<b>
 
 <ul>
  <li>Pandas</li>
- <li>Mmatplotlib</li>
+ <li>Matplotlib</li>
  <li>Json</li>
 </ul>
 
