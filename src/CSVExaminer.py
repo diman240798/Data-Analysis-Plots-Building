@@ -1,8 +1,6 @@
 import json
 import os
-
 from pandas import read_csv
-
 import src.Config as Config
 from model.Team import Team
 
@@ -120,7 +118,6 @@ def examineCSVbyName(fileName):
         f.write(']')
 
 def createSortedCSV(listOfteamNames, fileNames, resultFolder):
-    import csv
     for x in range(0, len(fileNames)):
         fileName = fileNames[x]
         teamNames = listOfteamNames[x]
@@ -129,10 +126,12 @@ def createSortedCSV(listOfteamNames, fileNames, resultFolder):
         t.close()
         with open(filePath, 'a') as f:
             with open(Config.resultFolder + '/examined.csv', 'r') as all_data:
-                reader = csv.reader(all_data)
-                csvHeader = next(reader)
-                f.write(','.join(csvHeader))
-                for row in reader:
+                lines = all_data.readlines()
+
+                csvHeader = lines[0]
+                f.write(csvHeader)
+                for x in range(1, len(lines)):
+                    line = lines[x]
                     for teamName in teamNames:
-                        if (teamName in row):
-                            f.write('\n' + ','.join(row))
+                        if (teamName in line):
+                            f.write(line)
